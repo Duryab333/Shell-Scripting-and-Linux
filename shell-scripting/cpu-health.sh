@@ -14,8 +14,9 @@ set -o  # pipfail
 df -h 
 free -g
 nproc
-        #ps -ef  display detailed information about all the processes running on the system
-        
-ps -ef | grep amazin | awk -F " " '{print $2}'
+        # ps -ef  display detailed information about all the processes running on the system
+        # grep to find a specific process
+        # awk -F " " to process text and extract specific columns
+ps -ef | grep amazon | awk -F " " '{print $2}'
 
 
