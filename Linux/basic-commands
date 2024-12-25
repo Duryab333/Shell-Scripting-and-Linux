@@ -1,0 +1,30 @@
+pwd                    # present directory
+cd                     #change direcory
+ls                     #list element present directory
+ls -ltr                #list detials of  element in present directory
+touch                  #make file
+vi                     #to create and write in file 
+vi file_name           #then i for insert then after writnting Esc :wq!
+cat   file_name        #to print file inside
+mkdir directory_name   #to make directory
+rm -r directory_name   #to remove directory
+free, free -g          #to check how much memory is used or free
+nproc                  #no. Of cpus 
+df -h                  #disk size
+top                    #complete information of memory resources, how many processes are runing on machine and how much memory is used in them 
+ps -ef                 #get the process information that is runing on systm 
+grep                   #filter some information form output 
+|                      #pipe command is used for get the output form first command and send to second command
+#########Theory###############
+#Log flows in system(different channel that every virtual machine has) : stdin , stdout, stderr
+#So if the output is send in stdin then it will not give to pipe second command that’s why 
+
+date | echo “today is ”                                 #output is “today is ” not with real date. Date is system default command. 
+                                                        #So it sends information to stdin and pipe is not be able to receive it
+awk -F “ ” ‘{print $2}’                                 #used to print certain column from output 
+ps -ef | grep amazon | awk -F “ ” ‘{print $2}’          # this will print the amazon process id
+curl   www.link-logfile.com                             #here will be log file loaded then by applying grep or | comand required output can be generated)
+                                                        #e.g curl link.com | grep ERROR
+wget link.com                                           #downloads the log file on our system then to retrieve information e.g cat filename | grep ERROR  
+sudo su -                                               #to switch to root user to write command which needs root credentials to run
+sudo find / -name filename        # find/ search the file from the entire file systm)
