@@ -44,13 +44,15 @@ git remote add --location_of_git_repository
 git pull
 git clone --https_link
 git clone --ssh
+git push origin HEAD:--branch_name
+
 ```
 - `git remote -v`: Shows the URLs of remote repositories.
 - `git remote add --location_of_git_repository`: Adds a new remote repository.
 - `git pull`: Fetches and integrates changes from the remote repository.
 - `git clone --https_link`: Clones a repository via HTTPS (requires credentials).
 - `git clone --ssh`: Clones a repository via SSH (requires SSH key setup).
-
+- `git push`: is push to the target branch on GitHub where your local commit will be pushed.
 ### Setting Up SSH Keys
 ```bash
 ssh-keygen -t rsa
