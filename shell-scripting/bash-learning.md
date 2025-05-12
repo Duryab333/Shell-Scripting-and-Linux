@@ -45,4 +45,20 @@ fi
 
 ```
 
+### Disk Space Utilizaiton
 
+`disk-space.sh`
+```
+#!/bin/bash
+
+echo "Checking Disk usage in Linux System"
+disk_size=` df -h | grep /dev/root | awk '{print $5}' | cut -d '%' -f1`
+echo "$disk_size% of disk is filled"
+if [ $disk_size -gt 80 ];then
+        echo "Disk is utillized more than 80%, ecpand disk or delete files soon"
+else
+        echo "Enouh disk is avaliable"
+fi
+
+
+```
