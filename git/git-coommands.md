@@ -80,3 +80,13 @@ git rebase branch_name
 - `git merge branch_name`: Merges another branch into the current branch (non-linear history).
 - `git rebase branch_name`: Reapplies commits on top of another branch, creating a linear history.
 
+## Git configuraiton 
+
+Use Git Credential Manager (Windows/Linux/Mac)
+If you're on a personal machine and want Git to remember credentials:
+
+```
+git config --global credential.helper store
+# or better
+git config --global credential.helper cache
+```
