@@ -115,10 +115,10 @@ fi
 
 ```
 #!/bin/bash
-filename="test"
+name="test"
 for folder in $( find . -type d ); do  # -type f: for file
         echo "the folder is $folder"
-        if [ -d "$filename" ]; then
+        if [ -d "$name" ]; then
                 echo " this folder exists"
                 echo " removing the folder "
                 rm -rf test
