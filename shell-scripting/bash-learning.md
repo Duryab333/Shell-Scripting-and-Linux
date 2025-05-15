@@ -111,3 +111,23 @@ fi
 
 ```
 
+# loop to remove a specific directory
+
+```
+#!/bin/bash
+filename="test"
+for folder in $( find . -type d ); do  # -type f: for file
+        echo "the folder is $folder"
+        if [ -d "$filename" ]; then
+                echo " this folder exists"
+                echo " removing the folder "
+                rm -rf test
+        else
+                echo "test folder does not exists"
+        fi
+done
+~
+
+
+```
+
