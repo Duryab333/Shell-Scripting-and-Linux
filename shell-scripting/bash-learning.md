@@ -79,7 +79,7 @@ cat /tmp/filesize.txt
 ### Delete files which are older than 30 days
 
 
-To run this it needs path argument './deletelogs.sh /home/ubuntu/'
+To run this it needs path argument `./deletelogs.sh /home/ubuntu/`
 
 ```
 #!/bin/bash
@@ -97,6 +97,7 @@ fi
 
 # Install prometheus software using wget
 
+`shell-wget.sh`
 ```
 #!/bin/bash
 echo "Download the prometheus binaries"
@@ -112,6 +113,7 @@ fi
 ```
 
 # loop to remove a specific directory
+`del_test_file.sh`
 
 ```
 #!/bin/bash
@@ -130,4 +132,56 @@ done
 
 
 ```
+# Check an appliction is runing on mahcine using cut command
+
+`docker_service_check.sh`
+```
+#!/bin/bash
+echo "===Status check docker service==="
+status="`systemctl status docker | awk 'NR==3 {print}' | cut -d ':' -f 2 | cut -d '(' -f 1  `"
+echo $status
+if [ $status = "active" ]; then
+        echo "service is running fine"
+else
+      
+```
+
+
+# Cron-tab mannagment in Linux
+check if the service is runing after regural intervals if not then install it
+
+coron job listing command 
+```
+crontab -l
+```
+to edit cron-job 
+```
+crontab -e
+```
+Now 
+
+```
+
+
+```
+
+to check if the docker is runing in cron-job.if not start the service
+
+```
+#!/bin/bash
+echo "===Status check docker service==="
+status="`systemctl status docker | awk 'NR==3 {print}' | cut -d ':' -f 2 | cut -d '(' -f 1  `"
+echo $status
+if [ $status = "active" ]; then
+        echo "service is running fine"
+else
+        echo "service wass not running"
+        sudo systemctl start docker
+        echo "service is now running"
+fi
+
+```
+
+# 
+
 
