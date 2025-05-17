@@ -95,7 +95,7 @@ fi
 
 ```
 
-# Install prometheus software using wget
+### Install prometheus software using wget
 
 `shell-wget.sh`
 ```
@@ -112,7 +112,7 @@ fi
 
 ```
 
-# loop to remove a specific directory
+### loop to remove a specific directory
 `del_test_file.sh`
 
 ```
@@ -132,7 +132,7 @@ done
 
 
 ```
-# Check an appliction is runing on mahcine using cut command
+### Check an appliction is runing on mahcine using cut command
 
 `docker_service_check.sh`
 ```
@@ -147,7 +147,7 @@ else
 ```
 
 
-# Cron-tab mannagment in Linux
+### Cron-tab mannagment in Linux
 check if the service is runing after regural intervals if not then install it
 
 coron job listing command 
@@ -183,7 +183,7 @@ fi
 
 ```
 
-# Bash Read
+### Bash Read
 
 ![image](https://github.com/user-attachments/assets/cab644ba-e78e-42de-a4eb-1cefd7dc70b7)
 
@@ -212,7 +212,7 @@ fi
 
 ```
 
-## Check errors in error logs using grep
+### Check errors in error logs using grep
 
 grep -option
 ![image](https://github.com/user-attachments/assets/ec568abb-f9aa-48b1-ac78-1d7e44831499)
@@ -231,7 +231,7 @@ fi
 
 ```
 
-## Calculator using case
+### Calculator using case
 
 
 ```
@@ -273,3 +273,130 @@ case $choice in
 esac
 
 ```
+
+
+### Steam Editor ( SED )
+-        This command can perform lot of funcitons without opening the file e.g view file contents, serching, find and replace insertion and deltion.
+-        SED also supports regular expressions which allows it to perform complex pattern matching.
+-    
+
+ **Table summarizing common `sed` command usages** in Linux:
+
+| **Command**                    | **Description**                                               | **Example**                         |
+|--------------------------------|---------------------------------------------------------------|-------------------------------------|
+| `sed 's/old/new/' file.txt`    | Replace **first occurrence** of "old" with "new" in each line | `sed 's/Linux/Unix/' file.txt`      |
+| `sed 's/old/new/g' file.txt`   | Replace **all occurrences** of "old" with "new" in each line  | `sed 's/error/fixed/g' file.txt`    |
+| `sed -i 's/old/new/g' file.txt`| Replace text **in-place** (modifies the file)                 | `sed -i 's/Linux/Unix/g' file.txt`  |
+| `sed '/pattern/d' file.txt`    | Delete lines containing "pattern"                             | `sed '/error/d' file.txt`           |
+| `sed -n 'p' file.txt`          | Print **All** file content                                    | `sed -n 'p' file.txt`               |
+| `sed -n '5p' file.txt`         | Print **only** line 5                                         | `sed -n '5p' file.txt`              |
+| `sed -n '5,10p' file.txt`      | Print lines **5 to 10**                                       | `sed -n '5,10p' file.txt`           |
+| `sed '1i New line' file.txt`   | Insert "New line" **before** line 1                           | `sed '1i Header' file.txt`          |
+| `sed '$a End line' file.txt`   | Append "End line" **after** last line                         | `sed '$a Footer' file.txt`          |
+| `sed 's/^/Prefix: /' file.txt` | Add "Prefix: " **at the beginning** of each line              | `sed 's/^/Log: /' file.txt`         |
+| `sed 's/$/ :Suffix/' file.txt` | Add " :Suffix" **at the end** of each line                    | `sed 's/$/ - Done/' file.txt`       |
+| `sed -i '10i ------' file.txt` | **Inserts** "--------" **before** line 10                     | Adds a separator before line 10     |
+| `sed -i '10a ------' file.txt` | **Appends** "--------" **after** line 10                      | Inserts a separator after line 10   |
+
+
+### Checking Disk utilizaiton using funciton
+
+
+```
+
+#!/bin/bash
+echo "Disk utlizaiton file"
+disk_utilization() {
+        disk=`df -h`
+        echo "disk utilitation is : $disk"
+}
+if [[ $? -eq 0 ]]; then
+        echo "This is the disk usage report"
+        disk_utilization
+else
+        echo "disk has some issue"
+fi
+
+```
+
+### Check if the server is rrunning
+
+```
+
+#!/bin/bash
+#
+echo "Check if the server is Running"
+read -p "Enter the URL of server: " URL
+response=$(curl -s -w "%{http_code}" $URL)
+http1_code=$(tail -n1 <<< "$response")
+content=$(sed '$ d' <<< "$response")
+
+#echo "$http1_code"
+if [ $http1_code == 200 ]; then
+        echo "Request is working fine"
+else
+        echo "send slack message that request is denied"
+fi
+
+```
+
+-        when you run the script it will ask the url. you have to put url in input.
+
+### CPU Load Alert 
+
+```#!/bin/bash
+echo "CPU Load average value check"
+
+# Extract CPU load correctly
+load=$(top -bn1 | grep "load average" | awk '{print $10}' | tr -d ',')
+
+echo "Current CPU Load: $load"
+
+# Use `bc` for proper floating-point comparison
+if (( $(echo "$load >= 1" | bc -l) )); then
+    echo "CPU load is very high: $load"
+else
+    echo "CPU load is normal"
+fi
+
+```
+
+## Backup automation
+
+**Make sure: ** you modify the directoy path according to usr systme.
+
+```
+#!/bin/bash
+echo "Taking Backup of home and etc directories"
+
+backup_dirs=("../../etc" "../../home")
+dest_dir="/backup_today"
+tmp_dir="../../tmp"
+sudo mkdir -p $dest_dir
+backup_date=$(date +%b-%d-%y)
+echo "starting backup of: ${backup_dirs[@]}"
+
+for i in "${backup_dirs[@]}"; do
+        sudo tar -Pczf $tmp_dir/$i-$backup_date.tar.gz $i
+        if [ $? -eq 0 ]; then
+                echo "$i backup Succeeded."
+        else
+                echo "$i backup Failed."
+        fi
+
+        sudo cp $tmp_dir/$i-$backup_date.tar.gz $dest_dir
+        if [ $? -eq 0 ]; then
+                echo "$i transfer succeeded."
+        else
+                echo "$i transfer failed"
+        fi
+done
+sudo rm $tmp/*.gz
+echo "Backup is done"
+
+
+```
+
+
+
+        
