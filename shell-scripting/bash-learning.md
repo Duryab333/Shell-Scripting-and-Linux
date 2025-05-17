@@ -363,7 +363,7 @@ fi
 
 ## Backup automation
 
-**Make sure: ** you modify the directoy path according to usr systme.
+**Make sure:** you modify the directoy path according to usr systme.
 
 ```
 #!/bin/bash
