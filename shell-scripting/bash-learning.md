@@ -162,6 +162,7 @@ Now
 
 ```
 
+* * * * * /home/ubuntu/docker_service_check.sh >> logs.txt
 
 ```
 
@@ -182,6 +183,93 @@ fi
 
 ```
 
-# 
+# Bash Read
+
+![image](https://github.com/user-attachments/assets/cab644ba-e78e-42de-a4eb-1cefd7dc70b7)
+
+Example script:
+```
+#!/bin/bash
+read -p "what is your name:" name
+read -p "Enter the password:" -s pasword
+echo $name
+echo $password
+read -p "it will timeout in 10 seconds:" -t 10
+
+```
+
+Read the service name from user and return its stauts. Is it runing or not 
+
+```
+#!/bin/bash
+echo " Welcom to service status check script "
+read -p " Enter the service name to check its status: " service_name
+if [ -z $service_name ]; then
+        echo "Please enter the valid service name"
+else
+        systemctl status $service_name   # systemctl list-unit-files to print all services
+fi
+
+```
+
+## Check errors in error logs using grep
+
+grep -option
+![image](https://github.com/user-attachments/assets/ec568abb-f9aa-48b1-ac78-1d7e44831499)
+
+Printing error log messages 
+
+```
+#!/bin/bash
+error_file=`cat /var/log/syslog`
+matched_error=`grep -i error /var/log/syslog`
+if [[ $? -eq 0 ]]; then
+        echo "Found error in OS logs: $matched_error"
+else
+        echo "No error in message logs"
+fi
+
+```
+
+## Calculator using case
 
 
+```
+#!/bin/bash
+clear
+echo "--------------------------------"
+echo "---------Calculator-------------"
+echo "--------------------------------"
+echo -e "[a]Addition\n[b]Substraction\n[c]Multiplication\n[d]Dvision\n"
+read -p "Enter your choice:" choice
+case $choice in
+        [aA])
+                read -p "Enter first number : " num1
+                read -p "Enter 2nd number : " num2
+                result=$((num1+num2))
+                echo "The result is : $result"
+                ;;
+        [bB])
+                read -p "Enter first number : " num1
+                read -p "Enter 2nd number : " num2
+                result=$((num1-num2))
+                echo "The result is : $result"
+                ;;
+        [cC])
+                read -p "Enter first number : " num1
+                read -p "Enter 2nd number : " num2
+                result=$((num1*num2))
+                echo "The result is : $result"
+                ;;
+        [dD])
+                read -p "Enter first number : " num1
+                read -p "Enter 2nd number : " num2
+                result=$(awk "BEGIN {print $num1 / $num2}")
+                echo "The result is : $result"
+                ;;
+        *)
+                echo "Wrong choice"
+                ;;
+esac
+
+```
