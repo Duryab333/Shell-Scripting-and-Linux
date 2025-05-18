@@ -361,7 +361,7 @@ fi
 
 ```
 
-## Backup automation
+### Backup automation
 
 **Make sure:** you modify the directoy path according to usr systme.
 
@@ -396,7 +396,74 @@ echo "Backup is done"
 
 
 ```
+### Create a Service to monitor disk utlization
+
+A **service in Linux** is a background process managed by the operating system, typically started during boot and running continuously to perform specific tasks (e.g., networking, logging, monitoring).
+
+Services are managed by **init systems** like **systemd**, using commands such as `systemctl start`, `stop`, `status`, and `enable`.
+
+The key components of writing a **systemd service file** in Linux are:
+
+1. **`[Unit]`** – Describes the service and its dependencies (e.g., `Description=`, `After=`).
+2. **`[Service]`** – Defines how the service runs (e.g., `ExecStart=`, `User=`, `Restart=`, `Type=`).
+3. **`[Install]`** – Specifies when the service should start (e.g., `WantedBy=multi-user.target`).
+
+First write the task that you want to run as service:
+Here my task file is `disk_monitor.sh` in home/ubuntu directory. Make it executable.
+
+```
+#!/bin/bash
+# The script check system disk utilizatio after every 120 seconds and save into a txt file.
+while true
+do
+        date >> /var/log/fs-monitor.txt
+        df -h >> /var/log/fs-monitor.txt
+        sleep 120
+done
+
+```
+then write a service file in directory /etc/systemd/system by sudo previlage.
+
+`sudo vi /etc/systemd/system/fs-monitor.service`
 
 
+```
+[Unit]
+Description=FS monitoring Service
+Documentation=https://devopstech.com
 
-        
+[Service]
+Type=simple
+User=root
+Group=root
+TimeoutStartSec=0
+Restart=on-failure
+RestartSec=30s
+ExecStart=/home/ubuntu/disk_monitor.sh
+SyslogIdentifier=Diskutilization
+
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+To Reloaded the updated configuration in system you need to first run 
+
+```
+sudo systemctl daemon-reload
+```
+
+To start the service 
+
+```
+sudo systemctl start fs-monitor.service
+
+```
+To check the status 
+
+```
+
+systemctl status fs-monitor.service
+
+```
