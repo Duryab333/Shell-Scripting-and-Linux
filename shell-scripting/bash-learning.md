@@ -467,3 +467,5 @@ To check the status
 systemctl status fs-monitor.service
 
 ```
+
+To check the file that has the ouput of disk utilization `cat /var/log/fs-monitor.txt`
