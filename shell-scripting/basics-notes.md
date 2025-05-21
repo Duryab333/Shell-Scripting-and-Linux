@@ -21,7 +21,6 @@ sh or ./
 ```bash
 echo
 ```
-
 ### File Permissions
 - `chmod` changes file permissions to control who can read, write, or execute the file.
 
@@ -41,6 +40,20 @@ Example:
 chmod 777 file
 ```
 - Grants full permissions to the owner, group, and others.
+### Add a New User
+
+```
+sudo adduser your_username
+
+```
+with sudo previligeous:
+
+```
+sudo usermod -aG sudo your_username
+
+```
+
+
 
 ## Purpose of Shell Scripting in DevOps
 
