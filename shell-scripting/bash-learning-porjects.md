@@ -469,3 +469,53 @@ systemctl status fs-monitor.service
 ```
 
 To check the file that has the ouput of disk utilization `cat /var/log/fs-monitor.txt`
+
+### Weather checking using curl
+
+You have to put the name of city and it will tell you the weather there.
+
+```
+#!/bin/bash
+
+function show_usage() {
+    echo "Usage: $0 <city_name>"
+    echo "Example: $0 Delhi"
+}
+
+read -p "Please enter the city name: " CITY
+if [ -z "$CITY" ]; then
+    echo "Error: City name not provided."
+    show_usage
+    exit 1
+fi
+
+echo "Fetching coordinates for $CITY..."
+GEO_DATA=$(curl -s "https://geocoding-api.open-meteo.com/v1/search?name=${CITY}&count=1")
+
+LAT=$(echo "$GEO_DATA" | grep -o '"latitude":[^,]*' | cut -d':' -f2)
+LON=$(echo "$GEO_DATA" | grep -o '"longitude":[^,]*' | cut -d':' -f2)
+
+if [ -z "$LAT" ] || [ -z "$LON" ]; then
+    echo "Error: Could not find coordinates for '$CITY'."
+    exit 1
+fi
+
+echo "Fetching weather details for $CITY (lat: $LAT, lon: $LON)..."
+
+WEATHER=$(curl -s "https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true")
+TEMP=$(echo "$WEATHER" | grep -o '"temperature":[^,]*' | cut -d':' -f2)
+
+if [ -z "$TEMP" ]; then
+    echo "Error: Could not fetch weather data for '$CITY'."
+    exit 1
+fi
+
+echo "=================================="
+echo "         WEATHER REPORT           "
+echo "=================================="
+echo "City:        $CITY"
+echo "Temperature: $TEMP °C"
+echo "=================================="
+
+```
+
