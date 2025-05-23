@@ -519,3 +519,34 @@ echo "=================================="
 
 ```
 
+
+### dentify Root Privileged Users
+
+```
+#!/bin/bash
+#
+echo "Checking users with root privileges..."
+
+# 1
+echo "Users with UID 0 (direct root access): "
+awk -F: '$3 == 0 {print $1} ' ../../etc/passwd
+
+#2
+echo "Users in the Sudo group : "
+getent group sudo | awk -F: '{print $4}' | tr ','  '\n'
+
+#3
+echo "Users with Explicit Sudo Privileges in /etx/sudoers: "
+sudo awk '/^[^#].*ALL=\(ALL\)/ {print $1}' ../../etc/sudoers
+
+#4
+echo "Users wih Sudo Provileges in /etc/sudoers.d: "
+for file in ../../etc/sudoers.d/*; do
+        [ -f "$file" ] && sudo awk '/^[^#].*ALL=\(ALL\)/ {print $1}' "$file"
+done
+
+
+
+
+
+```
