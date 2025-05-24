@@ -215,6 +215,8 @@ fi
 ### Check errors in error logs using grep
 
 grep -option
+
+
 ![image](https://github.com/user-attachments/assets/ec568abb-f9aa-48b1-ac78-1d7e44831499)
 
 Printing error log messages 
