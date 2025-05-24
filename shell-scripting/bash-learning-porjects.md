@@ -278,9 +278,10 @@ esac
 
 
 ### Steam Editor ( SED )
--        This command can perform lot of funcitons without opening the file e.g view file contents, serching, find and replace insertion and deltion.
--        SED also supports regular expressions which allows it to perform complex pattern matching.
--    
+
+- This command can perform lot of funcitons without opening the file e.g view file contents, serching, find and replace insertion and deltion.
+- SED also supports regular expressions which allows it to perform complex pattern matching.
+
 
  **Table summarizing common `sed` command usages** in Linux:
 
