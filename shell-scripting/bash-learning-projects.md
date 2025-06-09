@@ -279,7 +279,7 @@ esac
 
 ### Steam Editor ( SED )
 
-- This command can perform lot of funcitons without opening the file e.g view file contents, serching, find and replace insertion and deltion.
+- This command can perform lot of funcitons without opening the file e.g view file contents, searching, find and replace insertion and deltion.
 - SED also supports regular expressions which allows it to perform complex pattern matching.
 
 
