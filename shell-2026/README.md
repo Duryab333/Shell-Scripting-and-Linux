@@ -1,0 +1,11 @@
+ ## 2. Bash & Automation (Python Scripting)
+  - Shell execution model
+  - Exit code & Error handling
+  - Variables, quoting, conditionals
+  - Loop & Functions
+  - Positional Parameters
+  - Pipes & redirection
+  - Cron & scheduling pitfalls
+  - Idempotent scripting mindset
+  - Logging in scripts
+  - Defensive scripts
