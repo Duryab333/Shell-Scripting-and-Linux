@@ -23,7 +23,7 @@ log_file=$1
 echo "-----------------------------------" >> $log_file
 echo "$(date +'%y-%m-%d-%H-%M-%S')" >> $log_file
 #echo "-----------------------------------" >> $log_file
-before=$(df -h  /home/duryab_ariq/shell-scripting/backups | awk 'NR==2 {print $3}')
+before=$(df -h  /home/duryab_ariq/shell-scripting/backups | awk 'NR==2 {print $5}')
 echo "Disk usage Before $before" >> $log_file
 
 ./backup-script.sh /home/duryab_ariq/shell-scripting/files/ /home/duryab_ariq/shell-scripting/backups > /dev/null
@@ -33,5 +33,5 @@ else
         exit 1
 fi
 
-after=$(df -h  /home/duryab_ariq/shell-scripting/backups | awk 'NR==2 {print $3}')
+after=$(df -h  /home/duryab_ariq/shell-scripting/backups | awk 'NR==2 {print $5}')
 echo "Disk usage After $after" >> $log_file
