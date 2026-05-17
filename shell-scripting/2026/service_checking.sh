@@ -6,18 +6,18 @@
 This script check for service status.If service is not runing, restart if
 
 usage:
-./service_check.sh <service name>
+./service_check.sh
 comment
 
 read -p "Enter the serice name: " service_name
 
 function service_check {
 
-        service=$(systemctl list-units --type=service -all | grep $service_name | awk -F"." 'NR==1 {print $1}')
+        service=$(systemctl list-units --type=service -all | grep "$service_name" | awk -F"." 'NR==1 {print $1}')
         len=$( echo -n $service | wc -c)
 
         if [  $len != 0 ]; then
-                status=$(systemctl list-units --type=service -all | grep $service_name | awk '{print $3}')
+                status=$(systemctl list-units --type=service -all | grep "$service_name" | awk '{print $3}')
                 echo "Service Status: ${status}"
         else
                 echo "$service_name Not found"
@@ -49,14 +49,14 @@ function service_options {
                         ;;
                 "3")
                         echo "Restaring Service ....."
-                        sudo systemctl stop $service_name > /dev/null
+                        sudo systemctl restart $service_name > /dev/null
                         if [ $? -eq 0 ]; then
                                 echo "Service Restarted Successfully"
                         fi
                         ;;
                 "4")
                         echo "Exiting Program ..."
-                        exit 1
+                        exit 0
                         ;;
                 *) echo "Invalid choice "
         esac
